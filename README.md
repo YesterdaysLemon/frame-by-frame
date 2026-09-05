@@ -26,6 +26,25 @@ Additional controls include figure duplication/deletion, colour, numeric scale, 
 
 The first visit opens the six-frame example and builder to reproduce the reference composition. Existing autosaved projects are restored without replacement. The scene is drawn in an 800 × 660 coordinate space with uniform scaling.
 
+## Characters, rigs and animation library
+
+The **Library** menu opens a classic modeless window with **Characters**, **Rigs**, and **Animations** tabs. It includes search, item thumbnails, an animation preview, naming, rename/delete controls, and library file import/export.
+
+- **Characters** save a figure's current pose, colour, and segment appearance. Saved characters are also available in the sidebar's Add Figure selector.
+- **Rigs** save template geometry, segment thickness, shapes, and static/hidden joint settings. Save from the Library menu or directly from the builder's File menu. Rigs are stored in neutral black and can be inserted and posed again.
+- **Animations** save the complete current timeline and frame rate. Six original starter clips are included: Walk, Run, Wave, Jump, Idle / breathe, and Bow.
+- **Preview** plays a clip inside the library without changing the stage. **Open animation** replaces the current timeline after confirmation; Undo restores its previous frames and frame rate.
+- **Append clip** inserts frames after the current frame. With **Use selected character when appending** checked, a single-character clip uses the selected character's appearance and rig lengths; other figures stay in place. Without it, the clip's scene is inserted with fresh figure IDs. Appended clips use the current timeline's frame rate.
+- **Export library** downloads a portable JSON backup. **Import library** validates and merges a backup, keeping existing items and numbering duplicate names. It does not overwrite the current animation.
+
+Library saves remain in this browser's storage: no accounts, uploads or cloud synchronization. Export for a durable backup or transfer between browsers. The saved library is limited to 120 assets and 4 MB; a full/unavailable browser store produces a visible error instead of claiming the save succeeded. Built-in items cannot be renamed or deleted.
+
+The figure builder is a viewport-level window above the library and the rest of the editor. It can be dragged across menus, the frame strip and side panels. Both tool windows minimize/maximize and remain within the browser viewport when resized. They are app windows, not operating-system windows.
+
+## Design direction
+
+Future features retain this classic gray, beveled desktop language. The repository's AGENTS.md records the owner's preference so later work preserves the chrome and floating-window behavior.
+
 Projects autosave in the current browser when storage is available. Download JSON for a durable copy; browser data can be cleared or unavailable.
 
 ## Sources and scope
@@ -38,7 +57,7 @@ Behavior and layout research used the original product's official documentation:
 
 The top thumbnail timeline, left control panel, red segment handles, orange origin handle, and copy-then-pose workflow reflect those documented interactions. No original program code, bundled figures, sprites, audio, or proprietary files are included.
 
-This prototype supports at most 500 frames and 50 figures per frame; opened JSON files are limited to 5 MB and validated before loading. Earlier MVP JSON remains supported. The builder edits the existing 11-joint skeleton; it does not add arbitrary joints. It does not support `.piv` or `.stk` files, GIF/video export, frame interpolation, or full desktop feature parity. PNG export is a single frame. A mouse and wider screen make detailed posing easier.
+This prototype supports at most 500 frames and 50 figures per frame; opened JSON files are limited to 5 MB and validated before loading. Earlier MVP JSON remains supported. The builder and saved rigs use the existing 11-joint skeleton; they do not add arbitrary joints. Animation reuse transfers joint angles while preserving target lengths, not full inverse kinematics or foot locking. It does not support `.piv` or `.stk` files, GIF/video export, frame interpolation, or full desktop feature parity. PNG export is a single frame. A mouse and wider screen make detailed posing easier.
 
 ## Verification
 
@@ -46,8 +65,8 @@ Run `npm run check` for syntax checks. Real-browser checks cover the reference-s
 
 ## Preview
 
-![Classic chrome at the reference's 665 by 570 dimensions](classic-reference-size.png)
+![Classic desktop library and floating figure builder](library-desktop.png)
 
-[Larger desktop screenshot](desktop.png) · [Narrow viewport screenshot](mobile.png)
+[Classic reference-size chrome](classic-reference-size.png) · [Builder above the menus](floating-builder.png) · [Narrow library viewport](library-mobile.png)
 
 See [verification notes](VERIFICATION.md) for tested behavior and limits.

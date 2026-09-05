@@ -1,5 +1,17 @@
 # Verification — 2026-09-05
 
+## Floating windows and reusable library
+
+- The builder's parent is now BODY, outside the stage's clipping region. A real title-bar drag moved it to [7,7]; hit-testing over the top menu and an overlapping library window returned the builder. Maximize filled a 1100 × 800 viewport with a 10px margin (1080 × 780).
+- Saved a named character, rig, and full animation through the UI. All three survived a reload and appeared in the library; saved figures also appeared in the Add Figure selector. Inserting a saved character increased the frame's figure count from 1 to 2.
+- Exported the library to JSON and imported it back. Existing items remained and duplicate names gained a numbered suffix. Malformed JSON was rejected. Rename and delete worked on the imported test assets, leaving one saved item in each category.
+- All six procedural starter clips pass the app's project validator. Their forward-kinematic poses preserve source bone lengths to floating-point precision and stay within the stage.
+- Library Preview visibly advanced frames. Appending Walk added 24 frames (3 → 27), retained the selected character's colour and produced a valid project. A later Wave append preserved rig lengths with maximum measured error 2.14e-14 stage units.
+- Opening Jump produced its 24-frame, 18fps project. Undo restored the previous timeline and its 12fps rate; later append produced 51 total frames. Imported and saved clips are not treated as executable code.
+- Desktop and narrow library screenshots were visually inspected. At 665 × 570 the library was 580 × 468 at [42.5,65]; at 390 × 844 it was 378 × 600 at [6,55]. Window resize/clamping, minimize and maximize were checked. Console inspection reported zero errors and warnings.
+
+Checks used a dedicated local browser session and original test assets; test save files remain outside the repository. Browser storage quota exhaustion and physical touch hardware were not exhaustively tested. The library is local, and rigs retain the existing 11-joint topology.
+
 ## Classic chrome revision
 
 The modern design was replaced using the owner's supplied 665 × 570 screenshot as the visual reference. No pixels or proprietary program assets from the screenshot are bundled; bevels, controls and icons are HTML/CSS/SVG and figures are canvas drawings.
