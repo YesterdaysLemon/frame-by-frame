@@ -1,6 +1,6 @@
 # Frame by Frame
 
-A runnable browser stick-figure animation editor MVP. It recreates familiar Pivot-style posing and frame workflows using independent vanilla JavaScript and original visuals. This is an unofficial project, not Pivot Animator.
+A runnable browser stick-figure animation editor MVP with classic desktop chrome closely matched to a supplied Pivot reference screenshot. Gray beveled panels, compact File/Options/Help menus, the top thumbnail strip, left controls and a floating blue-title-bar Stick Figure Builder replace the initial modern design. All JavaScript and vector icons are independently implemented. This is an unofficial project, not Pivot Animator.
 
 ## Run locally
 
@@ -17,10 +17,14 @@ Open http://127.0.0.1:4173. No dependency installation, account, or API key is r
 1. Drag a red joint to rotate a segment and its descendants. Limb lengths stay fixed while posing.
 2. Drag the orange hip to move the entire figure.
 3. Click **Next frame** to copy the pose, then adjust it. The previous pose appears as an onion skin.
-4. Select timeline thumbnails to edit earlier frames. Play your sequence and adjust speed from 1–30 fps.
-5. Use **Save project** to download an editable JSON project. **Open project** restores that format. **Export PNG** exports the current frame without handles.
+4. Select timeline thumbnails to edit earlier frames. Play your sequence and adjust speed from 1–30 fps with the vertical slider beside Play and Stop. Repeat toggles looping.
+5. Use **File → Save animation** to download editable JSON. **Open animation** restores that format. **Export frame PNG** exports the current frame without handles.
 
-Additional controls include figure duplication/deletion, color, scale, horizontal flip, centering, frame duplication/deletion, undo, looping, and a 12-frame walk demo. Space toggles playback, arrow keys navigate frames (right at the end adds a frame), and Ctrl/Cmd+Z undoes edits.
+Additional controls include figure duplication/deletion, colour, numeric scale, horizontal flip, centering, Front/Back ordering, frame duplication/deletion, undo, looping, and a six-frame example. File and Options contain the less-used commands. Space toggles playback, arrow keys navigate frames (right at the end adds a frame), and Ctrl/Cmd+Z undoes edits. Ctrl/Cmd+S saves and Ctrl/Cmd+O opens a project.
+
+**Edit** opens the movable Stick Figure Builder. Select and drag a joint to alter its length, then use the toolbar to change line/circle shape, circle fill, thickness, static state, or hide/restore limbs. Closing with × applies changes as one undoable edit; File → Close without applying discards them. The builder initially shows the figure's template shape; applying a changed template also uses that shape as the current pose. Opening and closing without edits preserves the existing pose. Its minimize/maximize controls work, as do the main window's minimize/restore controls.
+
+The first visit opens the six-frame example and builder to reproduce the reference composition. Existing autosaved projects are restored without replacement. The scene is drawn in an 800 × 660 coordinate space with uniform scaling.
 
 Projects autosave in the current browser when storage is available. Download JSON for a durable copy; browser data can be cleared or unavailable.
 
@@ -34,14 +38,16 @@ Behavior and layout research used the original product's official documentation:
 
 The top thumbnail timeline, left control panel, red segment handles, orange origin handle, and copy-then-pose workflow reflect those documented interactions. No original program code, bundled figures, sprites, audio, or proprietary files are included.
 
-This prototype supports at most 500 frames and 50 figures per frame; opened JSON files are limited to 5 MB and validated before loading. It does not support `.piv` or `.stk` files, custom skeleton construction, GIF/video export, frame interpolation, or full desktop feature parity. PNG export is a single frame. Joint dragging is supported on touch screens, though a mouse and wider screen make detailed posing easier.
+This prototype supports at most 500 frames and 50 figures per frame; opened JSON files are limited to 5 MB and validated before loading. Earlier MVP JSON remains supported. The builder edits the existing 11-joint skeleton; it does not add arbitrary joints. It does not support `.piv` or `.stk` files, GIF/video export, frame interpolation, or full desktop feature parity. PNG export is a single frame. A mouse and wider screen make detailed posing easier.
 
 ## Verification
 
-The script passed a JavaScript syntax check. Local browser checks covered hip dragging, adding and duplicating frames, and playback. This is an MVP, not a complete reproduction of the desktop application.
+Run `npm run check` for syntax checks. Real-browser checks cover the reference-size layout, builder editing/apply/undo, hip dragging, adding frames, playback, JSON round trips, earlier JSON compatibility and invalid input rejection. This is an MVP, not a complete reproduction of the desktop application.
 
 ## Preview
 
-![Desktop screenshot](desktop.png)
+![Classic chrome at the reference's 665 by 570 dimensions](classic-reference-size.png)
+
+[Larger desktop screenshot](desktop.png) · [Narrow viewport screenshot](mobile.png)
 
 See [verification notes](VERIFICATION.md) for tested behavior and limits.
