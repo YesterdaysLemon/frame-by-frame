@@ -1,0 +1,8 @@
+{
+  "name": "frame-by-frame",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An independent browser stick-figure animation editor prototype.",
+  "scripts": { "start": "node server.cjs" },
+  "engines": { "node": ">=18" }
+}
