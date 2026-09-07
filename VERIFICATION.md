@@ -37,3 +37,24 @@ Tested in a real Microsoft Edge browser with Playwright, at desktop 1440px and n
 - Local server returned pages successfully and rejected Git metadata/dotfile and encoded traversal requests with HTTP 403.
 
 This is a bounded smoke test, not exhaustive device or format compatibility verification. The editor uses its own JSON format and does not import .piv, export animated GIF/video, or add arbitrary skeleton topology.
+
+
+## Custom figure / joint-pulling iteration (2026-09-05)
+
+- `npm run check` passes syntax checks for all application scripts and `rig.test.cjs`.
+- Pure geometry checks cover legacy and arbitrary-tree validation, reachable and unreachable hand targets, unchanged torso/opposite branches, limb-length preservation, pinned endpoints, classic branch rotation, and inward pulls on a perfectly straight custom chain. Invalid parent indices, cycles, non-finite coordinates and inconsistent metadata are rejected.
+- Real Edge browser interaction checks verified hand dragging, Shift-click pinning and release, speed dialog Apply/Cancel/Undo, frame duplicate/delete/undo, and figure duplicate/scale/undo.
+- Drew a four-joint branched figure from a blank origin, using line and circle segments; verified grid snapping and builder Undo. Named and saved it, inserted it through the figure picker, reloaded the browser, exported/imported its figure JSON, and round-tripped a complete animation containing custom figures.
+- Exercised shape conversion, fill, thickness, static state, hide/restore, branch deletion/undo, reset/undo, window dragging above the main menus, minimize/maximize/restore, and cancel without modifying the animation.
+- Rejected an invalid project without altering the timeline. A mismatched clip reports the topology difference and leaves the timeline unchanged; disabling retargeting appends the original actors successfully.
+- Inspected captures at 665 x 570, 1100 x 800 and 390 x 700. Builder bounds fit each viewport; gray beveled controls, blue tool title bars and modeless stacking are retained. `builder-iteration.png` shows the new construction tools.
+- Both browser suites completed with zero page errors. Tests used a separate Edge profile, not the owner's in-app animation/library storage.
+
+Limits: endpoint IK stops at a branch or pinned/static ancestor; this is not full-body physics. Coincident snapping points remain distinct joints. Custom figures are trees with at most 128 joints. Animation retargeting requires the same parent layout. Saves remain local and portable through JSON export.
+
+
+## Elbow/knee bend correction
+
+The previous pull mode rotated both bones together when dragging an elbow or knee, preserving its bend angle. Direct middle-joint dragging now aims the upper bone at the pointer and projects the hand/foot toward its previous position at the fixed lower-bone length. Both bend directions are reachable; unrelated joints remain unchanged. Classic rotation and explicit pin/static constraints retain their previous behavior.
+
+Regression tests first reproduced the one-sided failure, then passed after the correction. Real browser checks covered four pointer orientations for each elbow and knee at 665 x 570, 1100 x 800 and 390 x 700 (48 drags), asserting pointer tracking, both bend directions, fixed lengths, unchanged other joints and no page errors. The owner's in-app tab was refreshed; it restored the 44-frame, 12 fps animation, with Pull joints enabled.

@@ -2,3 +2,7 @@ node_modules/
 .playwright-cli/
 *.log
 NOTES.md
+dist/
+__pycache__/
+*.pyc
+*.secret

@@ -1,0 +1,50 @@
+{
+  "generatedBy": "deploy-manager setup",
+  "auditedAt": "2026-09-07T19:29:41.402Z",
+  "host": {
+    "name": "Alireza's VPS",
+    "platform": "Ubuntu + Docker",
+    "edge": "Caddy",
+    "manager": "Deploy Manager",
+    "release": "unknown",
+    "status": "configured"
+  },
+  "routes": [
+    {
+      "id": "animator",
+      "appId": "animator",
+      "name": "Frame by Frame",
+      "hostname": "animator.alirezaafshan.com",
+      "port": 3090,
+      "kind": "site",
+      "description": "A classic browser stick figure animation editor with custom rigs and local saves.",
+      "url": "https://animator.alirezaafshan.com/",
+      "plot": {
+        "x": 2.5,
+        "z": -1.5
+      },
+      "healthPath": "/healthz"
+    }
+  ],
+  "datastores": [],
+  "controlPlane": [
+    {
+      "id": "caddy",
+      "name": "Caddy edge",
+      "status": "declared",
+      "description": "Terminates public HTTPS and routes hostnames to loopback-only services."
+    },
+    {
+      "id": "deploy-manager",
+      "name": "Deploy Manager",
+      "status": "online",
+      "description": "Receives signed release requests and reports active loopback health evidence."
+    },
+    {
+      "id": "docker",
+      "name": "Docker engine",
+      "status": "declared",
+      "description": "Runs production and candidate containers on isolated local ports."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "host": {
+    "name": "Alireza's VPS",
+    "platform": "Ubuntu + Docker",
+    "edge": "Caddy",
+    "manager": "Deploy Manager"
+  },
+  "manager": {
+    "hostname": "deploy.alirezaafshan.com",
+    "port": 9019,
+    "repository": "YesterdaysLemon/deploy-manager",
+    "branch": "main"
+  },
+  "apps": [
+    {
+      "id": "animator",
+      "name": "Frame by Frame",
+      "description": "A classic browser stick figure animation editor with custom rigs and local saves.",
+      "kind": "site",
+      "repository": "YesterdaysLemon/frame-by-frame",
+      "branch": "main",
+      "secretEnv": "ANIMATOR_DEPLOY_WEBHOOK_SECRET",
+      "repoDir": "/opt/frame-by-frame/app",
+      "repoUser": "deploy-manager",
+      "imageName": "frame-by-frame",
+      "containerName": "frame-by-frame",
+      "candidateContainerName": "frame-by-frame-candidate",
+      "publicPort": 3090,
+      "candidatePort": 3091,
+      "containerPort": 3000,
+      "healthPath": "/healthz",
+      "hostname": "animator.alirezaafshan.com",
+      "plot": {
+        "x": 2.5,
+        "z": -1.5
+      }
+    }
+  ],
+  "datastores": []
+}

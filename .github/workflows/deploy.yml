@@ -1,0 +1,48 @@
+name: Validate and deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: animator-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run check
+      - name: Build release image
+        run: docker build -t frame-by-frame:test .
+      - name: Verify container and public assets
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          docker run -d --name animator-test -p 127.0.0.1:3173:3000 frame-by-frame:test
+          node scripts/smoke.cjs http://127.0.0.1:3173
+      - name: Container logs
+        if: failure()
+        run: docker logs animator-test || true
+  deploy:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Request and verify the exact release
+        env:
+          DEPLOY_WEBHOOK_SECRET: ${{ secrets.DEPLOY_WEBHOOK_SECRET }}
+          DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL }}
+        run: node scripts/notify-deploy.cjs

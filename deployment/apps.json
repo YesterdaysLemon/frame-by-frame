@@ -1,0 +1,13 @@
+{
+  "apps": {
+    "animator": {
+      "repo": "YesterdaysLemon/frame-by-frame",
+      "branch": "main",
+      "event": "push",
+      "secretEnv": "ANIMATOR_DEPLOY_WEBHOOK_SECRET",
+      "publicName": "Frame by Frame",
+      "publicDescription": "A classic browser stick figure animation editor with custom rigs and local saves.",
+      "publicUrl": "https://animator.alirezaafshan.com/"
+    }
+  }
+}

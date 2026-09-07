@@ -1,8 +1,14 @@
 {
   "name": "frame-by-frame",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "private": true,
   "description": "An independent browser stick-figure animation editor prototype.",
-  "scripts": { "start": "node server.cjs", "check": "node --check editor.js && node --check library.js && node --check presets.js && node --check server.cjs" },
-  "engines": { "node": ">=18" }
+  "scripts": {
+    "start": "node server.cjs",
+    "check": "node --check rig.js && node --check editor.js && node --check builder.js && node --check startup.js && node --check library.js && node --check presets.js && node --check server.cjs && node rig.test.cjs && node --check scripts/build.cjs && node --check scripts/notify-deploy.cjs && node --check scripts/smoke.cjs",
+    "build": "node scripts/build.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
